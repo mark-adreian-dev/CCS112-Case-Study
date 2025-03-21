@@ -20,6 +20,9 @@
             @csrf
             <button type="submit">Logout</button>
         </form>
+        <div class="projects-button">
+    <a href="{{ route('projects.index') }}">Go to Projects</a>
+</div>
     </div>
 </body>
 </html>
