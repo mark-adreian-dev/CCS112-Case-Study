@@ -67,7 +67,14 @@
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
+                            <form method="POST" action="{{ route('projects.destroy', $project) }}" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                            <a href="{{ route('tasks.index', $project->id) }}">View Tasks</a>
                         </td>
+                 
                     </tr>
                 @endforeach
             </tbody>
