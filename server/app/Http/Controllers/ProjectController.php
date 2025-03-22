@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProjectController extends Controller
 {
@@ -12,9 +14,18 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'data' => Project::all()
-        ]);
+        try {
+            return response()->json([
+                'data' => Project::all()
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => "Something went wrong",
+                'systemErrorMessage' => $e -> getMessage()
+
+            ], 500); 
+        }
+       
     }
 
     /**
@@ -22,17 +33,54 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-       
+
+        try {
+            $request -> validate( [
+                'title' => 'required|string|max:100',
+                'description' => 'required|string',
+                'status' => 'required|string',
+            ]);
+    
+            $project = Project::create([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'status' => $request->input('status'),
+            ]);
+    
+            return response() -> json([
+                'message' => "Project Created Successfully",
+                'ProjectData' => $project
+            ], 201);
+        } catch (Exception $e) {
+            
+            return response() -> json([
+                    'message' => "Project Creation Unsuccessful",
+                    'systemErrorMessage' => $e -> getMessage()
+            ], 400);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show($project_id)
     {   
-        return response()->json([
-            'data' => $project
-        ]);   
+        try {
+            $project = Project::findOrFail($project_id);
+            return response() -> json([
+                'data' => $project
+            ]);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => "Project not found"
+            ], 404);   
+
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => "Something went wrong"
+            ], 500); 
+        }
     }
 
     /**
@@ -46,8 +94,26 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy($project_id)
     {
-        //
+
+        try {
+            $project = Project::destroy($project_id);
+
+            return response() -> json([
+                'message' => "Project successfully deleted",
+                'data' => $project
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response() -> json([
+                'message' => "Project not found",
+                'data' => $project
+            ], 404);
+        } catch (Exception $e) {
+            return response() -> json([
+                'message' => 'Something Went Wrong',
+                'systemErrorMessage' => $e -> getMessage()
+            ], 500);
+        }
     }
 }
