@@ -7,7 +7,11 @@
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
+<<<<<<< HEAD
         "axios": "^1.7.4",
+=======
+        "axios": "^1.8.2",
+>>>>>>> 6b36633 (adding api.php to AppServiceProvider and fixing model, controllers, factories and routes)
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^1.2.0",
         "tailwindcss": "^4.0.0",

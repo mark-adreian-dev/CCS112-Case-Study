@@ -1,20 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json([
-            'data' => Project::all()
-        ]);
+        //
     }
 
     /**
@@ -22,23 +19,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-       
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
-    {   
-        return response()->json([
-            'data' => $project
-        ]);   
+    public function show(User $user)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -46,7 +41,7 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(User $user)
     {
         //
     }

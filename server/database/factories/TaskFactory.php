@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Schema\ForeignKeyDefinition;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Task>
@@ -17,10 +18,9 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'project_id' => random_int(1, 10),
-            'title' => fake() -> sentence(3),
-            'status' => fake() -> randomElement(["pending", "in progress", "completed"])
-
+            'project_id'=>fake()->numberBetween(1, 5),
+            'title'=>implode(' ',fake()->words(3)),
+            'status'=> fake()->randomElement(['pending','in progress', 'completed'])
         ];
     }
 }

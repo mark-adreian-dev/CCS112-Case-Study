@@ -445,6 +445,7 @@
         },
         {
             "name": "egulias/email-validator",
+<<<<<<< HEAD
             "version": "4.0.3",
             "source": {
                 "type": "git",
@@ -455,6 +456,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/b115554301161fa21467629f1e1391c1936de517",
                 "reference": "b115554301161fa21467629f1e1391c1936de517",
+=======
+            "version": "4.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/egulias/EmailValidator.git",
+                "reference": "d42c8731f0624ad6bdc8d3e5e9a4524f68801cfa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/d42c8731f0624ad6bdc8d3e5e9a4524f68801cfa",
+                "reference": "d42c8731f0624ad6bdc8d3e5e9a4524f68801cfa",
+>>>>>>> 6b36633 (adding api.php to AppServiceProvider and fixing model, controllers, factories and routes)
                 "shasum": ""
             },
             "require": {
@@ -500,7 +513,11 @@
             ],
             "support": {
                 "issues": "https://github.com/egulias/EmailValidator/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/egulias/EmailValidator/tree/4.0.3"
+=======
+                "source": "https://github.com/egulias/EmailValidator/tree/4.0.4"
+>>>>>>> 6b36633 (adding api.php to AppServiceProvider and fixing model, controllers, factories and routes)
             },
             "funding": [
                 {
@@ -508,7 +525,11 @@
                     "type": "github"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-12-27T00:36:43+00:00"
+=======
+            "time": "2025-03-06T22:45:56+00:00"
+>>>>>>> 6b36633 (adding api.php to AppServiceProvider and fixing model, controllers, factories and routes)
         },
         {
             "name": "fruitcake/php-cors",
@@ -9003,12 +9024,20 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
+<<<<<<< HEAD
     "stability-flags": {},
+=======
+    "stability-flags": [],
+>>>>>>> 6b36633 (adding api.php to AppServiceProvider and fixing model, controllers, factories and routes)
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
+<<<<<<< HEAD
     "platform-dev": {},
+=======
+    "platform-dev": [],
+>>>>>>> 6b36633 (adding api.php to AppServiceProvider and fixing model, controllers, factories and routes)
     "plugin-api-version": "2.6.0"
 }
