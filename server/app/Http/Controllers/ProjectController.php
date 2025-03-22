@@ -88,7 +88,29 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        try {
+            $projectUpdate = $request -> validate([
+                'title' => 'required|string|max:100',
+                'description' => 'required|string',
+                'status' => 'required|string',
+            ]);
+    
+            $project->update($projectUpdate);
+    
+            return response() -> json([
+                'message' => 'Project Updated Successfully',
+                'validated_data' => $projectUpdate
+            ]);
+        } catch(ModelNotFoundException $e) {
+            return response()->json([
+                'message' => "Target project not found"
+            ], 404); 
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => "Something went wrong"
+            ], 500); 
+        }
+       
     }
 
     /**

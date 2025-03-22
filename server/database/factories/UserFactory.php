@@ -22,7 +22,7 @@ class UserFactory extends Factory
         return [
            'name'=> fake()->name(),
            'email'=> fake()->email(),
-           'password'=>fake()->password(),
+           'password'=> bcrypt("password"),
            'role'=>fake()->randomElement(['admin', 'user'])
         ];
     }

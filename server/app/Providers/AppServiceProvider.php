@@ -21,10 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (File::exists(base_path('routes/api.php'))) {
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
-        }
+
+        
     }
 }
