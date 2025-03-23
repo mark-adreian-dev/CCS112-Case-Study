@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $user = User::where('email', $request->email)->first();
 
-        if (Auth::attempt($credentials)) {
-            $token = Auth::user()->createToken($request->input('email'));
-            return response() -> json([
-                'message' => 'Account Verified',
-                'token' => $token -> plainTextToken
-            ]);
-            
+        if ($user) {
+            if(Hash::check($request -> password, $user->password)){
+                $token = $user->createToken($request->input('email'));
+                return response() -> json([
+                    'message' => 'Account Verified',
+                    'token' => $token -> plainTextToken
+                ]);
+            }
         }
 
         return response() -> json([
@@ -26,9 +28,9 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request)
-    {
+    {   
+
         $request->user()->tokens()->delete();
         return response()->json(['message' => 'Logged out successfully']);
     }
 }
- 

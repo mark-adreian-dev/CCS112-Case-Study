@@ -6,6 +6,7 @@ use App\Models\Project;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class ProjectController extends Controller
 {
@@ -20,10 +21,10 @@ class ProjectController extends Controller
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'message' => "Something went wrong",
+                'message' => "Something Went Wrong!",
                 'systemErrorMessage' => $e -> getMessage()
 
-            ], 500); 
+            ], 405); 
         }
        
     }

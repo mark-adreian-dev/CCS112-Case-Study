@@ -8,10 +8,15 @@ use App\Http\Controllers\TaskController;
 
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
-Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware('auth:sanctum')->group(function () {
+
+Route::middleware('auth:sanctum')->group(function() {
     Route::apiResource('projects', ProjectController::class);
     Route::apiResource('users', UserController::class);
     Route::apiResource('tasks', TaskController::class);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
+
+Route::get('/sample', function () {
+    throw new \Illuminate\Auth\AuthenticationException();
 });
