@@ -22,7 +22,7 @@ class AuthController extends Controller
                 $user = User::create([
                     'name' => $request -> input('name'),
                     'email' => $request -> input('email'),
-                    'password' =>  bcrypt($request -> input('name')),
+                    'password' =>  bcrypt($request -> input('password')),
                     'role' => 'user'
                 ]);
     
@@ -38,11 +38,6 @@ class AuthController extends Controller
                 'error_message' => $e -> getMessage()
             ], 422);
 
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => "Something went wrong",
-                'error_message' => $e->getMessage()
-            ], 500);
         }
     }
     public function login(Request $request)
@@ -61,6 +56,8 @@ class AuthController extends Controller
 
         return response() -> json([
             'message' => 'Invalid Credentials',
+            'status_code' => 401,
+            'error_code' => "UNAUTHORIZED"
         ]);
     }
 
