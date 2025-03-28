@@ -163,8 +163,8 @@ const SignUp = () => {
                     value={fieldValue.passwordConfirmation}
                     handleFieldChange={handleFieldChange}
                 />
-                <Button label={"Register"} style={`${isLoading ? '!bg-gray-300 !text-gray-500' : ''}`} className="" action={handleSubmit} />
-                <Button label={"Cancel"} style={`bg-transparent border-primary border-[2px] !text-primary mt-2 hover:bg-cancel hover:border-cancel hover:!text-white`} className="mt-2" action={cancelRegistration} />
+                <Button label={"Register"} style={`w-full bg-primary ${isLoading ? '!bg-gray-300 !text-gray-500' : ''}`} action={handleSubmit} />
+                <Button label={"Cancel"} style={`w-full bg-transparent border-primary border-[2px] !text-primary mt-2 hover:bg-cancel hover:border-cancel hover:!text-white`} className="mt-2" action={cancelRegistration} />
             </div>
             </form>
         </main>

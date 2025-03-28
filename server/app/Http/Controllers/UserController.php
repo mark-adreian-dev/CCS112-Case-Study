@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use Dotenv\Exception\ValidationException;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController extends Controller
 {
@@ -11,7 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        return response() -> json([
+            "data" => $users 
+        ]);
     }
 
     /**
@@ -19,7 +27,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+       
     }
 
     /**
@@ -27,7 +36,19 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        try {
+            if($user) {
+                return response() -> json([
+                    "data" => $user
+                ]);
+            }
+        } catch (Exception $e) {
+            print($e-> getMessage());
+            return response() -> json([
+                'message' => "User does not exist",
+                'error_message' => $e -> getMessage()
+            ], 404);
+        }
     }
 
     /**

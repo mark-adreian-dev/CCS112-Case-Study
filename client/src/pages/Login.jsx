@@ -81,7 +81,7 @@ const Login = () => {
               value={fieldValue.password}
               handleFieldChange={handleFieldChange}
             />
-            <Button label={"Log In"} action={handleSubmit} />
+            <Button label={"Log In"} action={handleSubmit} style={'w-full bg-primary'}/>
           </div>
           <hr className="w-full border-input-background border-b-[1px] my-8" />
           <div className="w-full flex justify-center items-center">
