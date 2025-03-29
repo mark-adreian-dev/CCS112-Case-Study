@@ -23,14 +23,15 @@ class AuthController extends Controller
                     'name' => $request -> input('name'),
                     'email' => $request -> input('email'),
                     'password' =>  bcrypt($request -> input('password')),
-                    'role' => 'user'
+                    'role' => 'User'
                 ]);
     
                 $token = $user -> createToken($user -> email);
                 return response() -> json([
                     'message' => 'Welcome aboard to Project Management System',
-                    'token' => $token -> plainTextToken
-                ]);
+                    'token' => $token -> plainTextToken,
+                    'data' => $user
+                ]); 
             }
         }  catch (ValidationException $e) {
             return response()->json([

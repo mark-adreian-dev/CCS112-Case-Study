@@ -1,16 +1,35 @@
 import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router'
+import axios from 'axios'
+
 import gear from '../../assets/dashboard/svg/gear.svg'
 import menu from '../../assets/dashboard/svg/menu.svg'
-import { Link } from 'react-router'
 import folderIcon from '../../assets/dashboard/svg/project.svg';
 import accountIcon from '../../assets/dashboard/svg/accounts.svg';
+import LogoutIcon from '../../assets/dashboard/svg/logout.svg';
 
 const Header = () => {
+  const navigate = useNavigate()
   const [isMenuVisible, setIsMenuVisible] = useState(false)
 
   const handleMenuClick = () => {
     setIsMenuVisible(!isMenuVisible)
   }
+
+  const handleLogout = () => {
+    console.log(localStorage.getItem("token"))
+    axios.post("http://localhost:8000/api/logout", {},  {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+    .then(response => {
+      console.log(response)
+      alert(response.data.message)
+    })
+    .then(()=> navigate("/"))
+ }
 
   return (
     <>
@@ -37,6 +56,13 @@ const Header = () => {
                   <img src={folderIcon} alt='folder-icon' className='mr-2'/>
                   <p>Projects</p>
                 </Link>
+              </li>
+
+              <li className='hover:bg-border-color px-8' onClick={handleLogout}>
+                <div className='flex py-4'>
+                    <img src={LogoutIcon} alt='logout-icon' className='mr-2'/>
+                    <p>Logout</p>
+                </div>
               </li>
             </ul>
           </nav>

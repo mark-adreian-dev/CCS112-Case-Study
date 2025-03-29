@@ -43,7 +43,7 @@ class UserController extends Controller
                 ]);
             }
         } catch (Exception $e) {
-            print($e-> getMessage());
+
             return response() -> json([
                 'message' => "User does not exist",
                 'error_message' => $e -> getMessage()
@@ -56,7 +56,32 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $isRequestValid = $request -> validate([
+            "name" => "string|max:255",
+            "email" => "string|email",
+            "role" => "string"
+        ]);
+
+        if($isRequestValid) {
+            try {
+                $user -> update([
+                    'name' => $request -> input('name'),
+                    'email' => $request -> input('email'),
+                    'role' => $request -> input('role')
+                ]);
+
+                return response() -> json([
+                    'message' => "user details updated successfully",
+                    "data" => $user
+                ]);
+            } catch (ValidationException $e) {
+                
+                return response() -> json([
+                    'message' => "User does not exist",
+                    'error_message' => $e -> getMessage()
+                ], 404);
+            }
+        }
     }
 
     /**
@@ -64,6 +89,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user -> delete();
+
+        return response() -> json([
+            'message' => 'Account Deleted',
+            'data' => $user
+        ]);
     }
 }

@@ -50,7 +50,7 @@ class ProjectController extends Controller
         
                 return response() -> json([
                     'message' => "Project Created Successfully",
-                    'ProjectData' => $project
+                    'data' => $project
                 ], 201);
             }
 
@@ -97,7 +97,8 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Project $project)
-    {
+    {   
+        
         try {
             $projectUpdate = $request -> validate([
                 'title' => 'required|string|max:100',
@@ -109,7 +110,7 @@ class ProjectController extends Controller
                 $project->update($projectUpdate);
                 return response() -> json([
                     'message' => 'Project Updated Successfully',
-                    'validated_data' => $projectUpdate
+                    'data' => $project
                 ]);
             }
            
@@ -144,7 +145,7 @@ class ProjectController extends Controller
 
             return response() -> json([
                 'message' => "Project successfully deleted",
-                'data' => $project
+                'data' => $project_id
             ]);
         } catch (ModelNotFoundException $e) {
             return response() -> json([
