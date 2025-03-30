@@ -379,12 +379,12 @@ const ProjectsDashboard = () => {
                 : state.searchQuery === "" ? 
             
                 state.data.map(project => {
-                    return <ProjectCard key={project.id} status={project.status} title={project.title} description={project.description} handleDelete={() => {handleDelete(project.id)}} handleUpdate={(event) => handleEditModalDisplay(event, project.id)}/>
+                    return <ProjectCard key={project.id} projectId={project.id} status={project.status} title={project.title} description={project.description} handleDelete={() => {handleDelete(project.id)}} handleUpdate={(event) => handleEditModalDisplay(event, project.id)}/>
                   }
                 ):
 
                 state.filteredData.map(project => {
-                    return <ProjectCard key={project.id} status={project.status} title={project.title} description={project.description} handleDelete={() => {handleDelete(project.id)}} handleUpdate={(event) => handleEditModalDisplay(event, project.id)}/>
+                    return <ProjectCard key={project.id} projectId={project.id} status={project.status} title={project.title} description={project.description} handleDelete={() => {handleDelete(project.id)}} handleUpdate={(event) => handleEditModalDisplay(event, project.id)}/>
                   }
                 )
               } 

@@ -2,11 +2,13 @@ import React from 'react'
 import TrashIcon from '../../assets/dashboard/svg/trash.svg'
 import Button from '../Button'
 import EditIcon from '../../assets/dashboard/svg/edit.svg'
+import { Link } from 'react-router'
 
-const ProjectCard = ({ status, title, description, handleDelete, handleUpdate}) => {
+const ProjectCard = ({ status, title, description, handleDelete, handleUpdate, projectId}) => {
 
   return (
-    <div className='border-[1px] border-border-color p-4 w-full flex flex-col justify-between h-[155px]'>
+    
+    <Link to={`/projects/${projectId}`} className='border-[1px] border-border-color p-4 w-full flex flex-col justify-between h-[155px]'>
       <div className=''>
         <h3 className='text-body-M font-bold'>{title}</h3>
         <p className='text-body-XS text-placehoder-color'>{description}</p>
@@ -20,7 +22,7 @@ const ProjectCard = ({ status, title, description, handleDelete, handleUpdate}) 
           <Button label={<img src={TrashIcon} alt='trash-icon'/>} style={`border-2 border-cancel bg-cancel`} action={handleDelete}/>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 

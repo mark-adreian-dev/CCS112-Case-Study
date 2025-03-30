@@ -62,7 +62,7 @@ class TaskController extends Controller
 
                 return response()->json([
                     'message' => "Task Created Successfully",
-                    'TaskData' => $task
+                    'data' => $task
                 ], 201);
             }
             
@@ -129,7 +129,7 @@ class TaskController extends Controller
         try {
             $taskUpdate = $request->validate([
                 'title' => 'sometimes|required|string|max:100',
-                'status' => 'sometimes|required|string|in:pending,in_progress,completed',
+                'status' => 'sometimes|required|string|in:pending,in progress,completed',
             ]);
 
             $project = Project::findOrFail($project_id);
@@ -142,7 +142,8 @@ class TaskController extends Controller
     
                     return response()->json([
                         'message' => "Task Updated Successfully",
-                        'validated_data' => $taskUpdate
+                        'validated_data' => $taskUpdate,
+                        'data' => $task
                     ]);
                 }
             }

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { DashboardContext } from '../../Context/DashboardContext'
+import { TaskDashboardContext } from '../../Context/TaskDashboardContex'
 import axios from 'axios'
 import ProfileImageIcon from '../../assets/dashboard/svg/user.svg'
 import TrashIcon from '../../assets/dashboard/svg/trash.svg'
@@ -7,12 +7,12 @@ import Button from '../Button'
 import EditIcon from '../../assets/dashboard/svg/edit.svg'
 
 
-const AccountTable = ({tableColumns, tableRows,}) => {
+const AccountTable = ({tableColumns, tableRows}) => {
 
-    const { state, dispatch } = useContext(DashboardContext)
+    const { state, dispatch, id } = useContext(TaskDashboardContext)
 
-    const handleDelete = (account_id) => {
-        axios.delete(`http://127.0.0.1:8000/api/users/${account_id}`, {
+    const handleDelete = (task_id) => {
+        axios.delete(`http://localhost:8000/api/projects/${id}/tasks/${task_id}`, {
             headers: {
                 "Accept" : "application/json",
                 "Authorization" : `Bearer ${localStorage.getItem("token")}`
@@ -20,36 +20,35 @@ const AccountTable = ({tableColumns, tableRows,}) => {
         })
         .then(response => {
             const accountRemoved = response.data.data
-            dispatch({ type: "DELETE_USER", payload: accountRemoved})
+            dispatch({ type: "DELETE_TASK", payload: accountRemoved})
             
         })
        
     }
 
-    const handleModalDisplay = (account_id) => {
+    const handleModalDisplay = (task_id) => {
        
-        if(state.isEditAccountFormHidden) {
-            axios.get(`http://127.0.0.1:8000/api/users/${account_id}`, {
+        if(state.isEditTaskFormHidden) {
+            axios.get(`http://localhost:8000/api/projects/${id}/tasks/${task_id}`, {
                 headers: {
                     "Accept" : "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             })
             .then(response => {
-                dispatch({ type: "SET_TARGET_USER_DATA", payload: response.data.data})
+                dispatch({ type: "SET_TARGET_TASK_DATA", payload: response.data.data})
                 return response.data.data
             }) .then (response => {
            
                 dispatch({ type: "SET_INITIAL_EDIT_FORM_VALUES", payload: {
-                    name: response.name,
-                    email: response.email,
-                    role: response.role
+                    title: response.title,
+                    status: response.status
                 }})
-                dispatch({type: "OPEN_EDIT_ACCOUNT_MODAL"})
+                dispatch({type: "OPEN_EDIT_TASK_MODAL"})
             })
             
         }
-        else dispatch({type: "CLOSE_EDIT_ACCOUNT_MODAL"})
+        else dispatch({type: "CLOSE_EDIT_TASK_MODAL"})
     }
 
 
@@ -59,7 +58,7 @@ const AccountTable = ({tableColumns, tableRows,}) => {
                 <tr>
                     {
                         tableColumns.map(columnHead => {
-                            return <th className={`${columnHead === "Email" && "hidden desktop:table-cell"} text-start px-3 py-4 font-normal`} key={columnHead}>{columnHead}</th>
+                            return <th className={`${columnHead === "Status" && "hidden desktop:table-cell"} text-start px-3 py-4 font-normal`} key={columnHead}>{columnHead}</th>
                         })
                     }
                 </tr>   
@@ -70,14 +69,15 @@ const AccountTable = ({tableColumns, tableRows,}) => {
                     tableRows.map((list, index) => { 
                         return <tr key={index} className=''>
                             <td className='flex justify-start items-center px-3 py-2 w-fit'>
-                                <img src={ProfileImageIcon} alt='profile-icon' />
+                               
                                 <div>
-                                    <h3 className='text-body-S font-bold'>{list.name}</h3>
-                                    <p className='text-placehoder-color'>{list.role}</p>
+                                    <h3 className='text-body-S font-bold'>{list.title}</h3>
                                 </div>
                             </td>
                             <td className="w-fit hidden desktop:table-cell font-bold">
-                                <p className='text-body-S'>{list.email}</p>
+                                <div className={`badge rounded-full bg-border-color ${list.status === "pending" ? "text-white bg-placehoder-color" : list.status === "in progress" ? "text-black bg-inprogress" : "text-white bg-completed"} px-4 py-3`}>
+                                    <p>{list.status}</p>
+                                </div>
                             </td>
                             <td className='px-3 py-2'>
                                 <div className='flex'>
